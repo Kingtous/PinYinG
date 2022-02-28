@@ -70,7 +70,6 @@ class _GameFormState extends State<GameForm> {
               SizedBox(
                 width: 100.w,
                 child: TextFormField(
-                  autofocus: true,
                   focusNode: node,
                   onSaved: (s) {
                     _tempAnsField = Get.find<PinYinService>().hasPinYin(s!);
