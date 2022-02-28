@@ -47,7 +47,7 @@ class _GameFormState extends State<GameForm> {
               child: Text(_gameController.getPinYinString()),
             ),
           ),
-          const Text("点击右下角查看游戏玩法！"),
+          const Text("点击右下角查看游戏玩法！每日一道题！"),
           Obx(()=> Text("你还有${_gameController.remainTimes.value}次机会哦").paddingAll(8.w)),
           buildForm(),
           buildKeybord(context),
