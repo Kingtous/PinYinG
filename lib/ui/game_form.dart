@@ -29,27 +29,30 @@ class _GameFormState extends State<GameForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Obx(()=> Text(_gameController.getHanZiString())),
-        // Obx(()=> Text(_gameController.getPinYinString())),
-        Obx(
-              ()=> Offstage(
-            offstage: !_gameController.canShowAns(),
-            child: Text(_gameController.getHanZiString()),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          // Obx(()=> Text(_gameController.getHanZiString())),
+          // Obx(()=> Text(_gameController.getPinYinString())),
+          Obx(
+                ()=> Offstage(
+              offstage: !_gameController.canShowAns(),
+              child: Text(_gameController.getHanZiString()),
+            ),
           ),
-        ),
-        Obx(
-              ()=> Offstage(
-            offstage: !_gameController.canShowAns(),
-            child: Text(_gameController.getPinYinString()),
+          Obx(
+                ()=> Offstage(
+              offstage: !_gameController.canShowAns(),
+              child: Text(_gameController.getPinYinString()),
+            ),
           ),
-        ),
-        const Text("点击右下角查看游戏玩法！"),
-        Obx(()=> Text("你还有${_gameController.remainTimes.value}次机会哦").paddingAll(8.w)),
-        buildForm(),
-        buildKeybord(context),
-      ],
+          const Text("点击右下角查看游戏玩法！"),
+          Obx(()=> Text("你还有${_gameController.remainTimes.value}次机会哦").paddingAll(8.w)),
+          buildForm(),
+          buildKeybord(context),
+        ],
+      ),
     );
   }
 
@@ -60,6 +63,7 @@ class _GameFormState extends State<GameForm> {
 
   Widget buildKeybord(BuildContext context){
     return Form(
+      autovalidateMode: AutovalidateMode.disabled,
       key: formKey,
       child: Obx(
         ()=> Container(
@@ -71,11 +75,14 @@ class _GameFormState extends State<GameForm> {
                 width: 100.w,
                 child: TextFormField(
                   focusNode: node,
+                  autovalidateMode: AutovalidateMode.disabled,
                   onSaved: (s) {
                     _tempAnsField = Get.find<PinYinService>().hasPinYin(s!);
                   },
                     onFieldSubmitted: (s){
-                    submitAns(context);
+                    // Future.delayed(Duration.zero,(){
+                    //   submitAns(context);
+                    // });
                     }
                   ,
                   validator: (s) {
@@ -113,7 +120,7 @@ class _GameFormState extends State<GameForm> {
                   onPressed: (){
                     submitAns(context);
                 // _gameController.input(s);
-              }, child: const Text("提交/Enter"))
+              }, child: const Text("提交"))
             ],
           ),
         ),
@@ -127,17 +134,14 @@ class _GameFormState extends State<GameForm> {
       // ok
       _gameController.input(_tempAnsField!);
       formKey.currentState!.reset();
+      Future.delayed(Duration.zero,(){
+        FocusScope.of(context).requestFocus(node);
+      });
     } else {
       // ignore
     }
     // formKey.currentState!.activate();
     // Focus.of(context).requestFocus(node);
-    Future.delayed(Duration.zero,(){
-      FocusScope.of(context).requestFocus(node);
-    });
-    setState(() {
-
-    });
     // node.requestFocus();
   }
 }

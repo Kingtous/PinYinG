@@ -48,7 +48,7 @@ class CharBox extends StatelessWidget {
       child: Text(
         status.field,
         style: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 24.sp,
           fontWeight: FontWeight.bold,
           color: Colors.black
         ),

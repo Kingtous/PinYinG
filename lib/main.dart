@@ -20,12 +20,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      builder: ()=> GetMaterialApp(
-        title: 'PinYinG - 猜拼音',
-        theme: ThemeData.dark(),
-        home: const MyHomePage(title: 'PinYinG - 猜拼音'),
-      ),
+    return GetMaterialApp(
+      title: 'PinYinG - 猜拼音',
+      theme: ThemeData.dark(),
+      home: const MyHomePage(title: 'PinYinG - 猜拼音'),
     );
   }
 }
@@ -43,16 +41,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(
+        BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height),
+        designSize: const Size(360, 690),
+        context: context,
+        minTextAdapt: true,
+        orientation: Orientation.portrait);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
       ),
-      body: const SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: GameForm(),
-        ),
+      body: SingleChildScrollView(
+        child: const GameForm(),
       ), // This trailing comma makes auto-formatting nicer for build methods.
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -66,9 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           "xianzai这7个拼音字母。你需要输入一个存在的汉语单词拼音，每次输入会占用一格，提交后会获得猜测结果。")),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Divider(height: 1,),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const Divider(height: 1,),
                   ),
                   Row(
                     children: const [
@@ -85,9 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       Text("绿色表示拼音中有此字母，且位置正确"),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Divider(height: 1,),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const Divider(height: 1,),
                   ),
                   Row(
                     children: const [
