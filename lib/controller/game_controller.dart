@@ -14,7 +14,7 @@ class GameController extends GetxController{
   var remainTimes = 5.obs;
   var isWon = false.obs;
 
-  Future<GameController> init({bool refresh = false}) async {
+  Future<GameController> init({bool refresh = true}) async {
     _data.value = Get.find<PinYinService>().getPinYin(refresh: refresh);
     // maxTriedTimes = _data.value!.py.length;
     final pinyinLength = _data.value!.py.length;
@@ -45,7 +45,7 @@ class GameController extends GetxController{
   bool input(PinyinData data){
     String s = data.py;
     if (isWon.value){
-      Get.defaultDialog(title: "你已经胜利了！",middleText: "胜利虽好，可不要贪杯哦~");
+      Get.defaultDialog(title: "你已经胜利了！",middleText: "胜利虽好，可不要贪杯哦~",textConfirm: "啊对对对",);
       return true;
     }
     if (remainTimes.value > 0) {
@@ -59,15 +59,16 @@ class GameController extends GetxController{
       remainTimes.value = remainTimes.value - 1;
       if (s == getPinYinString()){
         isWon.value = true;
-        Get.defaultDialog(title: "挑战成功！",middleText: "恭喜你！花费${maxTriedTimes - remainTimes.value}次完成了猜测！");
+        Get.defaultDialog(title: "挑战成功！",middleText: "恭喜你！花费${maxTriedTimes - remainTimes.value}次完成了猜测！",textCancel: "我真厉害"
+        );
         return true;
       }
       if (remainTimes.value == 0){
-        Get.defaultDialog(title: "挑战失败",middleText: "已经没有机会咯~");
+        Get.defaultDialog(title: "挑战失败",middleText: "正确答案：${getHanZiString()}",textCancel: "呜呜呜");
       }
       return true;
     } else {
-      Get.defaultDialog(title: "提示",middleText: "已经没有机会咯~");
+      Get.defaultDialog(title: "提示",middleText: "已经没有机会咯~",textCancel: "呜呜呜");
       return false;
     }
   }

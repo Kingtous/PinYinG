@@ -23,7 +23,7 @@ class PinYinService extends GetxService{
       final date = DateTime
           .now()
           .millisecondsSinceEpoch / (1000 * 3600 * 24);
-      final index = Random(date.toInt()).nextInt(_pinyinEntity.data.length);
+      final index = Random(refresh ? null :date.toInt()).nextInt(_pinyinEntity.data.length);
       _data = _pinyinEntity.data[index];
     }
     return _data!;
