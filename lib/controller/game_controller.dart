@@ -14,7 +14,7 @@ class GameController extends GetxController{
   var remainTimes = 5.obs;
   var isWon = false.obs;
 
-  Future<GameController> init({bool refresh = true}) async {
+  Future<GameController> init({bool refresh = false}) async {
     _data.value = Get.find<PinYinService>().getPinYin(refresh: refresh);
     // maxTriedTimes = _data.value!.py.length;
     final pinyinLength = _data.value!.py.length;

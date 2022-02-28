@@ -20,7 +20,6 @@ class _GameFormState extends State<GameForm> {
   static final formKey = GlobalKey<FormState>();
   PinyinData? _tempAnsField;
   static final FocusNode node = FocusNode();
-  final _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -30,101 +29,33 @@ class _GameFormState extends State<GameForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        padding: EdgeInsets.all(16.w),
-        child: Column(
-          children: [
-            // Obx(()=> Text(_gameController.getHanZiString())),
-            // Obx(()=> Text(_gameController.getPinYinString())),
-            Obx(
-            ()=> Offstage(
-                offstage: !_gameController.canShowAns(),
-                child: Text(_gameController.getHanZiString()),
-              ),
-            ),
-            Obx(
-            ()=> Offstage(
-                offstage: !_gameController.canShowAns(),
-                child: Text(_gameController.getPinYinString()),
-              ),
-            ),
-            Text("点击右下角查看游戏玩法！"),
-            Obx(()=> Text("你还有${_gameController.remainTimes.value}次机会哦").paddingAll(8.w)),
-            buildForm(),
-            buildKeybord(context),
-            Padding(
-              padding: EdgeInsets.only(bottom: 16.h),
-              child: const Text("Kingtous 2022"),
-            )
-          ],
+    return Column(
+      children: [
+        // Obx(()=> Text(_gameController.getHanZiString())),
+        // Obx(()=> Text(_gameController.getPinYinString())),
+        Obx(
+              ()=> Offstage(
+            offstage: !_gameController.canShowAns(),
+            child: Text(_gameController.getHanZiString()),
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _gameController.init(refresh: true).then((value) => {
-            Get.defaultDialog(title: "帮助", textCancel: "我知道了",
-
-                content: Column(
-              children: [
-                Row(
-                  children: const [
-                    Expanded(child: Text("你需要猜中一个词语的所有拼音字母，一共有5次机会。假设一个词语为\"现在\"，那么你需要在5次机会内，猜出"
-                        "xianzai这7个拼音字母。你需要输入一个存在的汉语单词拼音，每次输入会占用一格，提交后会获得猜测结果。")),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: const Divider(height: 1,),
-                ),
-                Row(
-                  children: const [
-                    Text("灰色表示拼音中无此字母"),
-                  ],
-                ),
-                Row(
-                  children: const [
-                    Text("黄色表示拼音中有此字母，但是位置不对"),
-                  ],
-                ),
-                Row(
-                  children: const [
-                    Text("绿色表示拼音中有此字母，且位置正确"),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: const Divider(height: 1,),
-                ),
-                Row(
-                  children: const [
-                    Expanded(
-                      child: Text("声母表\nb  p  m  f  d  t  n  l  g  k  h  j  q  x  zh  ch  sh  r  z  c  s  y  w",softWrap: true,
-                      overflow: TextOverflow.clip,),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: const [
-                    Expanded(
-                      child: Text("韵母表\na  o  e  i  u  ü  ai  ei  ui  ao  ou  iu  ie  üe  er  an  en  in  un  ün  ang  eng  ing  ong"
-                      ,softWrap: true,overflow: TextOverflow.clip,),
-                    ),
-                  ],
-                )
-              ],
-            ))
-          });
-        },
-        child: const Icon(Icons.help),
-      ),
+        Obx(
+              ()=> Offstage(
+            offstage: !_gameController.canShowAns(),
+            child: Text(_gameController.getPinYinString()),
+          ),
+        ),
+        const Text("点击右下角查看游戏玩法！"),
+        Obx(()=> Text("你还有${_gameController.remainTimes.value}次机会哦").paddingAll(8.w)),
+        buildForm(),
+        buildKeybord(context),
+      ],
     );
   }
 
 
   Widget buildForm() {
-    return Board();
+    return const Board();
   }
 
   Widget buildKeybord(BuildContext context){

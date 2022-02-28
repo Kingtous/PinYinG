@@ -20,9 +20,9 @@ class PinYinService extends GetxService{
 
    PinyinData getPinYin({bool refresh = false}){
     if (_data == null || refresh) {
-      final date = DateTime
-          .now()
-          .millisecondsSinceEpoch / (1000 * 3600 * 24);
+      final date = (DateTime
+          .now().toLocal().millisecondsSinceEpoch - DateTime(2000).toLocal().millisecondsSinceEpoch)
+          / (1000 * 3600 * 24);
       final index = Random(refresh ? null :date.toInt()).nextInt(_pinyinEntity.data.length);
       _data = _pinyinEntity.data[index];
     }

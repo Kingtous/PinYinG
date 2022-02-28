@@ -54,12 +54,65 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const <Widget>[
-          Expanded(child: GameForm())
-        ],
+      body: const SingleChildScrollView(
+        child: GameForm(),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.defaultDialog(title: "帮助", textCancel: "我知道了",
+
+              content: Column(
+                children: [
+                  Row(
+                    children: const [
+                      Expanded(child: Text("你需要猜中一个词语的所有拼音字母，一共有5次机会。假设一个词语为\"现在\"，那么你需要在5次机会内，猜出"
+                          "xianzai这7个拼音字母。你需要输入一个存在的汉语单词拼音，每次输入会占用一格，提交后会获得猜测结果。")),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Divider(height: 1,),
+                  ),
+                  Row(
+                    children: const [
+                      Text("灰色表示拼音中无此字母"),
+                    ],
+                  ),
+                  Row(
+                    children: const [
+                      Text("黄色表示拼音中有此字母，但是位置不对"),
+                    ],
+                  ),
+                  Row(
+                    children: const [
+                      Text("绿色表示拼音中有此字母，且位置正确"),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Divider(height: 1,),
+                  ),
+                  Row(
+                    children: const [
+                      Expanded(
+                        child: Text("声母表\nb  p  m  f  d  t  n  l  g  k  h  j  q  x  zh  ch  sh  r  z  c  s  y  w",softWrap: true,
+                          overflow: TextOverflow.clip,),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: const [
+                      Expanded(
+                        child: Text("韵母表\na  o  e  i  u  ü  ai  ei  ui  ao  ou  iu  ie  üe  er  an  en  in  un  ün  ang  eng  ing  ong"
+                          ,softWrap: true,overflow: TextOverflow.clip,),
+                      ),
+                    ],
+                  )
+                ],
+              ));
+        },
+        child: const Icon(Icons.help),
+      ),
     );
   }
 }
