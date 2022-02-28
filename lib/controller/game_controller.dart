@@ -8,8 +8,9 @@ class GameController extends GetxController{
 
   Rx<PinyinData?> _data = Rx(null);
   late RxList<RxList<CharBoxStatus>> states;
+  late RxList<String> words;
 
-  var maxTriedTimes = 6;
+  var maxTriedTimes = 5;
   var remainTimes = 5.obs;
   var isWon = false.obs;
 
@@ -19,6 +20,7 @@ class GameController extends GetxController{
     final pinyinLength = _data.value!.py.length;
     states = List.generate(maxTriedTimes, (_) => List.generate(pinyinLength, (_)=>
       CharBoxStatus(Status.none,"")).obs).obs;
+    words = List.generate(maxTriedTimes, (index) => "").obs;
     isWon = false.obs;
     remainTimes = maxTriedTimes.obs;
     return this;
@@ -40,7 +42,8 @@ class GameController extends GetxController{
     remainTimes.value = 0;
   }
 
-  bool input(String s){
+  bool input(PinyinData data){
+    String s = data.py;
     if (isWon.value){
       Get.defaultDialog(title: "你已经胜利了！",middleText: "胜利虽好，可不要贪杯哦~");
       return true;
@@ -51,6 +54,7 @@ class GameController extends GetxController{
       for (var i = 0; i< units.length; i++){
         states[maxTriedTimes - remainTimes.value][i] = CharBoxStatus(rightAnswerUnits[i] == units[i] ?
         Status.right : rightAnswerUnits.contains(units[i]) ? Status.hit : Status.diff, String.fromCharCode(units[i]));
+        words[maxTriedTimes - remainTimes.value] = data.hz;
       }
       remainTimes.value = remainTimes.value - 1;
       if (s == getPinYinString()){

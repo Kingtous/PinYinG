@@ -29,9 +29,9 @@ class PinYinService extends GetxService{
     return _data!;
   }
 
-  bool hasPinYin(String pinyin){
+  PinyinData? hasPinYin(String pinyin){
     final it = _pinyinEntity.data.where((element) => element.py == pinyin);
-    return it.isNotEmpty;
+    return it.isNotEmpty ? it.first : null;
   }
 
 }

@@ -12,14 +12,20 @@ class Board extends GetWidget<GameController> {
   Widget build(BuildContext context) {
     final state = controller.states;
     return ListView.builder(itemBuilder: (cxt,index) {
-      return Obx(()=>Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: state[index].map((e){
-          return Padding(
-            padding: EdgeInsets.all(1.w),
-            child: CharBox(status: e,),
-          );
-        }).toList(growable: false),
+      return Obx(()=>Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: state[index].map((e){
+              return Padding(
+                padding: EdgeInsets.all(1.w),
+                child: CharBox(status: e,),
+              );
+            }).toList(growable: false),
+          ),
+          Text(controller.words[index])
+        ],
       ));
     },itemCount: state.length,);
   }

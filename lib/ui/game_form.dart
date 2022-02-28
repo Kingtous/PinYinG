@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinying/bean/pinyin_entity.dart';
 import 'package:pinying/controller/game_controller.dart';
 import 'package:pinying/service/pinyin_service.dart';
 import 'package:pinying/ui/component/board.dart';
@@ -17,7 +18,8 @@ class _GameFormState extends State<GameForm> {
 
   late GameController _gameController;
   static final formKey = GlobalKey<FormState>();
-  String _tempAnsField = "";
+  PinyinData? _tempAnsField;
+  final node = FocusNode();
 
   @override
   void initState() {
@@ -50,20 +52,58 @@ class _GameFormState extends State<GameForm> {
             Expanded(child: buildForm()),
             buildKeybord(),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Kingtous 2022"),
+              padding: EdgeInsets.all(30.h),
+              child: const Text("Kingtous 2022"),
             )
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     _gameController.init(refresh: true).then((value) => {
-      //       Get.snackbar("重新开始！", "请继续你的挑战！")
-      //     });
-      //   },
-      //   child: const Icon(Icons.loop),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _gameController.init(refresh: true).then((value) => {
+            Get.defaultDialog(title: "帮助",content: Column(
+              children: [
+                Row(
+                  children: const [
+                    Text("灰色表示拼音中无此字母"),
+                  ],
+                ),
+                Row(
+                  children: const [
+                    Text("黄色表示拼音中有此字母，但是位置不对"),
+                  ],
+                ),
+                Row(
+                  children: const [
+                    Text("绿色表示拼音中有此字母，且位置正确"),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Divider(height: 1,),
+                ),
+                Row(
+                  children: const [
+                    Expanded(
+                      child: Text("声母表\nb  p  m  f  d  t  n  l  g  k  h  j  q  x  zh  ch  sh  r  z  c  s  y  w",softWrap: true,
+                      overflow: TextOverflow.clip,),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: const [
+                    Expanded(
+                      child: Text("韵母表\na  o  e  i  u  ü  ai  ei  ui  ao  ou  iu  ie  üe  er  an  en  in  un  ün  ang  eng  ing  ong"
+                      ,softWrap: true,overflow: TextOverflow.clip,),
+                    ),
+                  ],
+                )
+              ],
+            ))
+          });
+        },
+        child: const Icon(Icons.help),
+      ),
     );
   }
 
@@ -85,8 +125,8 @@ class _GameFormState extends State<GameForm> {
                 width: 100.w,
                 child: TextFormField(
                   autofocus: true,
+                  focusNode: node,
                   onSaved: (s) {
-                    _tempAnsField = s ?? "";
                   },
                     onFieldSubmitted: (s){
                     submitAns();
@@ -94,7 +134,10 @@ class _GameFormState extends State<GameForm> {
                   ,
                   validator: (s) {
                     if (s != null && s.length == _gameController.getPinYinString().length) {
-                      if (Get.find<PinYinService>().hasPinYin(s)){
+                      final _pinyinData = Get.find<PinYinService>().hasPinYin(s);
+                      if (_pinyinData != null){
+                        Get.snackbar("Hit！", "${_pinyinData.hz}");
+                        _tempAnsField = _pinyinData;
                         return null;
                       } else {
                         // if (kDebugMode){
@@ -110,7 +153,7 @@ class _GameFormState extends State<GameForm> {
                       return "谜底为${_gameController.getPinYinString().length}个拼音字母哦~";
                     }
                   },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "请输入汉字拼音",
 
               ),
@@ -121,7 +164,7 @@ class _GameFormState extends State<GameForm> {
                   onPressed: (){
                     submitAns();
                 // _gameController.input(s);
-              }, child: Text("提交"))
+              }, child: const Text("提交/Enter"))
             ],
           ),
         ),
@@ -133,10 +176,11 @@ class _GameFormState extends State<GameForm> {
     if (true == formKey.currentState?.validate()){
       formKey.currentState?.save();
       // ok
-      _gameController.input(_tempAnsField);
+      _gameController.input(_tempAnsField!);
       formKey.currentState?.reset();
     } else {
       // ignore
     }
+    node.requestFocus();
   }
 }
