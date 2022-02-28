@@ -52,7 +52,7 @@ class _GameFormState extends State<GameForm> {
             Expanded(child: buildForm()),
             buildKeybord(),
             Padding(
-              padding: EdgeInsets.all(30.h),
+              padding: EdgeInsets.only(bottom: 16.h),
               child: const Text("Kingtous 2022"),
             )
           ],
