@@ -12,4 +12,4 @@
 
 Github在线演示：[Github Page](https://kingtous.github.io/PinYinG/#/)
 
-加载慢，使用镜像：[Gitee Page](https://kingtous.gitee.io/pinying)
+加载慢，使用镜像：[Gitee Page](https://kingtous.gitee.io/pinying) 或 [个人部署镜像站](http://pinyingame.kingtous.cn/#/)
