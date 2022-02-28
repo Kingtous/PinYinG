@@ -51,6 +51,7 @@ class _GameFormState extends State<GameForm> {
           Obx(()=> Text("你还有${_gameController.remainTimes.value}次机会哦").paddingAll(8.w)),
           buildForm(),
           buildKeybord(context),
+          const Text("Created By Kingtous. Inspired By Wordle.").paddingSymmetric(vertical: 8.h)
         ],
       ),
     );
