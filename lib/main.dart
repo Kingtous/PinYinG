@@ -1,3 +1,4 @@
+import 'package:bruno/bruno.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'PinYinG - 猜拼音',
-      theme: ThemeData.dark(),
+      // theme: ThemeData.dark(),
       home: const MyHomePage(title: 'PinYinG - 猜拼音'),
     );
   }
@@ -50,9 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
         minTextAdapt: true,
         orientation: Orientation.portrait);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
+      appBar: BrnAppBar(
+        title: widget.title,
+        // centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: const GameForm(),

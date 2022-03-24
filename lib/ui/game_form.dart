@@ -1,3 +1,4 @@
+import 'package:bruno/bruno.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,7 +49,13 @@ class _GameFormState extends State<GameForm> {
             ),
           ),
           const Text("点击右下角查看游戏玩法！每日一道题！"),
-          Obx(()=> Text("你还有${_gameController.remainTimes.value}次机会哦").paddingAll(8.w)),
+          Obx(()=> BrnEnhanceNumberCard(
+            backgroundColor: Colors.transparent,
+              itemChildren: [
+                BrnNumberInfoItemModel(
+                    preDesc: "你还有",
+                    number: "${_gameController.remainTimes.value}",
+                    lastDesc:"次机会哦")])).paddingAll(8.w),
           buildForm(),
           buildKeybord(context),
           const Text("Created By Kingtous. Inspired By Wordle.").paddingSymmetric(vertical: 8.h)
@@ -73,7 +80,7 @@ class _GameFormState extends State<GameForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 100.w,
+                width: 200,
                 child: TextFormField(
                   focusNode: node,
                   autovalidateMode: AutovalidateMode.disabled,
@@ -117,11 +124,11 @@ class _GameFormState extends State<GameForm> {
                   maxLength: _gameController.getPinYinString().length,
                 ),
               ),
-              ElevatedButton(
-                  onPressed: (){
+              BrnNormalButton(
+                  onTap: (){
                     submitAns(context);
                 // _gameController.input(s);
-              }, child: const Text("提交"))
+              }, text: '提交',)
             ],
           ),
         ),

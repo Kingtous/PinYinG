@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bruno/bruno.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -35,24 +36,26 @@ class CharBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 50.h,
-      height: 50.h,
-      decoration: BoxDecoration(
-        color: status.status.getColor(),
-        borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: Colors.white70)
-      ),
-      // padding: EdgeInsets.all(16.w),
-      child: Text(
-        status.field,
-        style: TextStyle(
-          fontSize: 24.sp,
-          fontWeight: FontWeight.bold,
-          color: Colors.black
+    return BrnShadowCard(
+      child: Container(
+        alignment: Alignment.center,
+        width: 50.h,
+        height: 50.h,
+        decoration: BoxDecoration(
+          color: status.status.getColor(),
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: Colors.black87.withOpacity(0.5))
         ),
-      )
+        // padding: EdgeInsets.all(16.w),
+        child: Text(
+          status.field,
+          style: TextStyle(
+            fontSize: 24.sp,
+            fontWeight: FontWeight.bold,
+            color: Colors.black
+          ),
+        )
+      ),
     );
   }
 }
