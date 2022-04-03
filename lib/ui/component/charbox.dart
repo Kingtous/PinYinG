@@ -39,8 +39,8 @@ class CharBox extends StatelessWidget {
     return BrnShadowCard(
       child: Container(
         alignment: Alignment.center,
-        width: 40.w,
-        height: 40.w,
+        width: 30.w,
+        height: 30.w,
         decoration: BoxDecoration(
           color: status.status.getColor(),
           borderRadius: BorderRadius.circular(4),
