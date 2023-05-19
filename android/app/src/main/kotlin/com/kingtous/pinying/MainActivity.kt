@@ -1,4 +1,4 @@
-package com.example.pinying
+package com.kingtous.pinying
 
 import io.flutter.embedding.android.FlutterActivity
 

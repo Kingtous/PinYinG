@@ -37,7 +37,8 @@ dependencies:
   get: ^4.6.1
   flutter_screenutil: ^5.3.1
   animate_do: ^2.1.0
-  bruno: ^2.1.0-nullsafety.1
+  bruno: ^3.3.0
+  google_mobile_ads: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -49,7 +50,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-
+  flutter_launcher_icons: ^0.11.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -65,6 +66,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/data.json
+    - assets/app_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
