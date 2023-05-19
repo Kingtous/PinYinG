@@ -39,6 +39,7 @@ dependencies:
   animate_do: ^2.1.0
   bruno: ^3.3.0
   google_mobile_ads: ^3.0.0
+  flutter_typeahead: ^4.3.8
 
 dev_dependencies:
   flutter_test:
@@ -50,7 +51,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-  flutter_launcher_icons: ^0.11.0
+  flutter_launcher_icons: ^0.13.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

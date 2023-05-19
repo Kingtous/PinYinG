@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pinying/controller/game_controller.dart';
 import 'package:pinying/service/pinyin_service.dart';
 import 'package:pinying/ui/game_form.dart';
+import 'package:pinying/ui/translations/text_translations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,10 +20,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      title: 'PinYinG - 猜拼音',
+    return GetMaterialApp(
+      title: 'PinYinG - 猜拼音'.tr,
+      translations: PinYinGTranslations(),
       // theme: ThemeData.dark(),
-      home: MyHomePage(title: 'PinYinG - 猜拼音'),
+      home: MyHomePage(title: 'PinYinG - 猜拼音'.tr),
     );
   }
 }
@@ -66,9 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               "xianzai这7个拼音字母。\n你需要想一个存在的2字词语，这个词语的拼音总长度刚好等于一行的格子数量，即谜底的拼音总长。\n每次输入会占用一行（即一次机会），提交后会获得猜测结果，通过结果给出的提示来逐步推断出谜底拼音。")),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Divider(
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Divider(
                       height: 1,
                     ),
                   ),
