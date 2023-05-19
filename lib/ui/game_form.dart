@@ -48,11 +48,6 @@ class _GameFormState extends State<GameForm> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          if (isAdLoaded)
-            SizedBox(
-              height: 50.0,
-              child: AdWidget(ad: ads),
-            ),
           // Obx(()=> Text(_gameController.getHanZiString())),
           // Obx(()=> Text(_gameController.getPinYinString())),
           Obx(
@@ -84,6 +79,11 @@ class _GameFormState extends State<GameForm> {
 
           const Text("Created By Kingtous. Inspired By Wordle.")
               .paddingSymmetric(vertical: 8.h),
+          if (isAdLoaded)
+            SizedBox(
+              height: 50.0,
+              child: AdWidget(ad: ads),
+            ),
         ],
       ),
     );
