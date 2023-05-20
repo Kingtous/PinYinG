@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bruno/bruno.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +25,13 @@ class _GameFormState extends State<GameForm> {
   PinyinData? _tempAnsField;
   String? _tempText;
   static final FocusNode node = FocusNode();
-  static final ads = BannerAd(
-      size: AdSize.banner,
-      adUnitId: "ca-app-pub-4754225129255140/6858501246",
-      listener: const BannerAdListener(),
-      request: const AdRequest());
+  static final BannerAd? ads = Platform.isAndroid || Platform.isIOS
+      ? BannerAd(
+          size: AdSize.banner,
+          adUnitId: "ca-app-pub-4754225129255140/6858501246",
+          listener: const BannerAdListener(),
+          request: const AdRequest())
+      : null;
   bool isAdLoaded = false;
   final TextEditingController _textEditingController = TextEditingController();
 
@@ -35,11 +39,17 @@ class _GameFormState extends State<GameForm> {
   void initState() {
     super.initState();
     _gameController = Get.find<GameController>();
-    ads.load().then((value) {
+    ads?.load().then((value) {
       setState(() {
         isAdLoaded = true;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    ads?.dispose();
   }
 
   @override
@@ -78,10 +88,20 @@ class _GameFormState extends State<GameForm> {
           buildForm(),
           const Text("Created By Kingtous. Inspired By Wordle.")
               .paddingSymmetric(vertical: 8.h),
-          if (isAdLoaded)
-            SizedBox(
-              height: 50.0,
-              child: AdWidget(ad: ads),
+          if (isAdLoaded && ads != null)
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    // decoration: const BoxDecoration(color: Colors.black),
+                    height: 50.0,
+                    child: AdWidget(
+                      ad: ads!,
+                      key: const ValueKey('main'),
+                    ),
+                  ),
+                ),
+              ],
             ),
         ],
       ),

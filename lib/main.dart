@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:bruno/bruno.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pinying/controller/game_controller.dart';
 import 'package:pinying/service/pinyin_service.dart';
 import 'package:pinying/ui/game_form.dart';
@@ -9,6 +12,9 @@ import 'package:pinying/ui/translations/text_translations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isAndroid && Platform.isIOS) {
+    MobileAds.instance.initialize();
+  }
   await Get.putAsync(() => PinYinService().init());
   await Get.putAsync(() => GameController().init());
   runApp(const MyApp());
