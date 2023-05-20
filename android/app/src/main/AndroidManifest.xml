@@ -2,7 +2,7 @@
     package="com.kingtous.pinying">
    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="pinying"
+        android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

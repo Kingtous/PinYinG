@@ -76,7 +76,6 @@ class _GameFormState extends State<GameForm> {
                         lastDesc: "次机会哦")
                   ])).paddingAll(8.w),
           buildForm(),
-
           const Text("Created By Kingtous. Inspired By Wordle.")
               .paddingSymmetric(vertical: 8.h),
           if (isAdLoaded)
@@ -184,6 +183,10 @@ class _GameFormState extends State<GameForm> {
   }
 
   void submitAns(BuildContext context) {
-    _gameController.input(_tempAnsField!);
+    if (_tempAnsField != null) {
+      _gameController.input(_tempAnsField!);
+      _textEditingController.text = "";
+      _tempAnsField = null;
+    }
   }
 }
